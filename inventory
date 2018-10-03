@@ -1,0 +1,7 @@
+[ccma]
+10.236.1.34
+
+[ccma:vars]
+ansible_connection = ssh
+ansible_user = ccma
+ansible_ssh_pass = ccma
