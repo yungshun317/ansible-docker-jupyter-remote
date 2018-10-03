@@ -54,11 +54,24 @@
         timeout: 300
       when: ccma_to_docker is changed
 
+    - name: Ensure directory exists
+      file:
+        path: /home/ccma/notebook
+        state: directory
+
+    - name: Copy Dockerfile to remote
+      copy:
+        src: "./notebook/Dockerfile"
+        dest: /home/ccma/notebook/Dockerfile
+        owner: ccma
+        group: ccma
+        mode: 0644
+
     - name: Build a Docker image from Dockerfile
       docker_image:
         name: "{{ item.name }}"
         tag: "{{ item.tag }}"
-        path: "./{{ item.directory }}"
+        path: "/home/ccma/{{ item.directory }}"
         state: build
       with_items:
         - { name: notebook, tag: "jupyter", directory: notebook }
