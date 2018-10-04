@@ -75,3 +75,18 @@
         state: build
       with_items:
         - { name: notebook, tag: "jupyter", directory: notebook }
+
+    - name: Run a jupyter notebook container
+      docker_container:
+        image: notebook:jupyter
+        name: notebook
+        state: started
+        ports: "8888:8888"
+
+    - name: Execute commands in docker container
+      shell: docker exec -i notebook /bin/bash -c 'jupyter notebook list'
+      register: jupyter_notebook_list
+
+    - name: Debug jupyter_notebook_list
+      debug:
+        var: jupyter_notebook_list
