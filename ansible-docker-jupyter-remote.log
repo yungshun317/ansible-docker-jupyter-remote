@@ -1,0 +1,46 @@
+2018-10-29 17:02:17,673 p=16408 u=yungshun |  PLAY [jupyter] *****************************************************************
+2018-10-29 17:02:17,682 p=16408 u=yungshun |  TASK [Install Python 2.7] ******************************************************
+2018-10-29 17:02:18,947 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:18,952 p=16408 u=yungshun |  TASK [Gather facts after Python is definitely present] *************************
+2018-10-29 17:02:20,296 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:20,381 p=16408 u=yungshun |  TASK [Install pip and docker.io] ***********************************************
+2018-10-29 17:02:21,674 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:21,762 p=16408 u=yungshun |  TASK [Install Docker Python library] *******************************************
+2018-10-29 17:02:23,305 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:23,390 p=16408 u=yungshun |  TASK [Add ccma to the docker group] ********************************************
+2018-10-29 17:02:23,955 p=16408 u=yungshun |  changed: [10.236.1.34]
+2018-10-29 17:02:24,039 p=16408 u=yungshun |  TASK [Reboot immediately if there was a change] ********************************
+2018-10-29 17:02:25,439 p=16408 u=yungshun |  changed: [10.236.1.34]
+2018-10-29 17:02:25,522 p=16408 u=yungshun |  TASK [Wait for the reboot to complete if there was a change] *******************
+2018-10-29 17:02:32,161 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:32,244 p=16408 u=yungshun |  TASK [Ensure directory exists] *************************************************
+2018-10-29 17:02:32,785 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:32,871 p=16408 u=yungshun |  TASK [Copy Dockerfile to remote] ***********************************************
+2018-10-29 17:02:33,622 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:33,704 p=16408 u=yungshun |  TASK [Build a Docker image from Dockerfile] ************************************
+2018-10-29 17:02:34,333 p=16408 u=yungshun |  ok: [10.236.1.34] => (item={u'directory': u'notebook', u'tag': u'jupyter', u'name': u'notebook'})
+2018-10-29 17:02:34,417 p=16408 u=yungshun |  TASK [Run a jupyter notebook container] ****************************************
+2018-10-29 17:02:35,126 p=16408 u=yungshun |  ok: [10.236.1.34]
+2018-10-29 17:02:35,217 p=16408 u=yungshun |  TASK [Execute commands in docker container] ************************************
+2018-10-29 17:02:36,242 p=16408 u=yungshun |  changed: [10.236.1.34]
+2018-10-29 17:02:36,340 p=16408 u=yungshun |  TASK [Debug jupyter_notebook_list] *********************************************
+2018-10-29 17:02:36,440 p=16408 u=yungshun |  ok: [10.236.1.34] => {
+    "jupyter_notebook_list": {
+        "changed": true, 
+        "cmd": "docker exec -i notebook /bin/bash -c 'jupyter notebook list'", 
+        "delta": "0:00:00.601424", 
+        "end": "2018-10-29 17:02:36.175427", 
+        "failed": false, 
+        "rc": 0, 
+        "start": "2018-10-29 17:02:35.574003", 
+        "stderr": "", 
+        "stderr_lines": [], 
+        "stdout": "Currently running servers:\nhttp://0.0.0.0:8888/?token=92c02fdbc43d1dcaa9e1a873d70eb9238335323f0ff2b033 :: /home/jovyan", 
+        "stdout_lines": [
+            "Currently running servers:", 
+            "http://0.0.0.0:8888/?token=92c02fdbc43d1dcaa9e1a873d70eb9238335323f0ff2b033 :: /home/jovyan"
+        ]
+    }
+}
+2018-10-29 17:02:36,445 p=16408 u=yungshun |  PLAY RECAP *********************************************************************
+2018-10-29 17:02:36,445 p=16408 u=yungshun |  10.236.1.34                : ok=13   changed=3    unreachable=0    failed=0   
