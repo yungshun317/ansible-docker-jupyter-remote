@@ -54,10 +54,13 @@
         timeout: 300
       when: ccma_to_docker is changed
 
-    - name: Ensure directory exists
+    - name: Ensure a directory exists for putting Dockerfile
       file:
         path: /home/ccma/notebook
         state: directory
+        owner: ccma
+        group: ccma
+        mode: 0755
 
     - name: Copy Dockerfile to remote
       copy:
@@ -87,6 +90,22 @@
       with_items: '{{ found_containers.results }}'
       when: item.stdout
 
+    - name: get UID
+      shell: 'id -u ccma'
+      register: get_uid
+
+    - name: get GID
+      shell: 'id -g ccma'
+      register: get_gid
+
+    - name: Create a directory for mounting host volume
+      file:
+        path: /home/ccma/workspace
+        state: directory
+        owner: ccma
+        group: ccma
+        mode: 0755
+
     - name: Run a jupyter notebook container
       docker_container:
         image: notebook:jupyter
@@ -96,7 +115,8 @@
         volumes:
           - /home/ccma/workspace:/home/jovyan/work
         env:
-          NB_USER: ccma
+          NB_UID: "{{ get_uid.stdout }}"
+          NB_GID: "{{ get_gid.stdout }}"
 
     - name: Execute commands in docker container
       shell: docker exec -i notebook /bin/bash -c 'jupyter notebook list'
